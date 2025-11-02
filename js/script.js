@@ -1,30 +1,41 @@
 function playGame(playerInput) {
+
+    const playRock = 'kamień'
+    const playPaper = 'papier'
+    const playScissors = 'nożyce'
+    const invalidMove = 'nieznany ruch'
+    const messageWin = 'Ty wygrywasz!'
+    const messageWrongMove = 'Błędnie wybrany ruch!'
+    const messageLose = 'Przegrywasz!'
+    const messageDraw = 'Remis!'
+    
     clearMessages()
-    function getMoveName(number) {
+
+    let getMoveName = function (number) {
         switch (parseInt(number)) {
             case 1:
-                return 'kamień'
+                return playRock
             case 2:
-                return 'papier'
+                return playPaper
             case 3:
-                return 'nożyce'
+                return playScissors
         }
-        return 'nieznany ruch'
+        return invalidMove
     }
 
-    function displayResult(argComputerMove, argPlayerMove) {
-        if (argComputerMove === 'nieznany ruch' || argPlayerMove === 'nieznany ruch') {
-            printMessage('Błędnie wybrany ruch!')
-        } else if (argComputerMove === 'papier' && argPlayerMove === 'nożyce') {
-            printMessage('Ty wygrywasz!')
-        } else if (argComputerMove === 'nożyce' && argPlayerMove === 'kamień') {
-            printMessage('Ty wygrywasz!')
-        } else if (argComputerMove === 'kamień' && argPlayerMove === 'papier') {
-            printMessage('Ty wygrywasz!')
+    let displayResult = function (argComputerMove, argPlayerMove) {
+        if (argComputerMove === invalidMove || argPlayerMove === invalidMove) {
+            printMessage(messageWrongMove)
+        } else if (argComputerMove === playPaper && argPlayerMove === playScissors) {
+            printMessage(messageWin)
+        } else if (argComputerMove === playScissors && argPlayerMove === playRock) {
+            printMessage(messageWin)
+        } else if (argComputerMove === playRock && argPlayerMove === playPaper) {
+            printMessage(messageWin)
         } else if (argComputerMove === argPlayerMove) {
-            printMessage('Remis!')
+            printMessage(messageDraw)
         } else {
-            printMessage('Przegrywasz!')
+            printMessage(messageLose)
         }
     }
 
@@ -41,12 +52,18 @@ function playGame(playerInput) {
     displayResult(computerMove, playerMove)
 }
 
-document.getElementById('play-rock').addEventListener('click', function () {
+let rockButton = document.getElementById('play-rock')
+let paperButton = document.getElementById('play-paper')
+let scissorsButton = document.getElementById('play-scissors')
+
+rockButton.addEventListener('click', function () {
     playGame(1)
 })
-document.getElementById('play-paper').addEventListener('click', function () {
+
+paperButton.addEventListener('click', function () {
     playGame(2)
 })
-document.getElementById('play-scissors').addEventListener('click', function () {
+
+scissorsButton.addEventListener('click', function () {
     playGame(3)
 })
